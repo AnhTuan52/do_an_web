@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm/Xóa Môn Học</title>
+</head>
+<body>
+    <h1>Thêm/Xóa Môn Học</h1>
+
+    <!-- Form thêm môn học -->
+    <h2>Thêm môn học</h2>
+    <form method="POST" action="{{ url_for('add_course') }}">
+        <!-- Chọn Học kỳ -->
+        <label for="semester">Chọn Học kỳ:</label>
+        <select id="semester" name="semester" required>
+            <option value="Học kỳ 1">Học kỳ 1</option>
+            <option value="Học kỳ 2">Học kỳ 2</option>
+            <option value="Học kỳ hè">Học kỳ hè</option>
+        </select>
+        <br>
+
+        <!-- Chọn năm -->
+        <label for="year">Chọn năm:</label>
+        <select id="year" name="year" required>
+            {% for year in years %}
+                <option value="{{ year }}">{{ year }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <!-- Nhập thông tin môn học -->
+        <label for="course_code">Mã môn học:</label>
+        <input type="text" id="course_code" name="course_code" required>
+        <br>
+
+        <label for="practice_score">Điểm thực hành:</label>
+        <input type="number" step="0.1" id="practice_score" name="practice_score" required>
+        <br>
+
+        <label for="process_score">Điểm quá trình:</label>
+        <input type="number" step="0.1" id="process_score" name="process_score" required>
+        <br>
+
+        <label for="midterm_score">Điểm giữa Học kỳ:</label>
+        <input type="number" step="0.1" id="midterm_score" name="midterm_score" required>
+        <br>
+
+        <label for="final_score">Điểm cuối Học kỳ:</label>
+        <input type="number" step="0.1" id="final_score" name="final_score" required>
+        <br>
+
+        <label for="total_score">Tổng điểm:</label>
+        <input type="number" step="0.1" id="total_score" name="total_score" required>
+        <br>
+
+        <button type="submit">Thêm môn học</button>
+    </form>
+
+    <!-- Form xóa môn học -->
+    <h2>Xóa môn học</h2>
+    <form method="POST" action="{{ url_for('delete_course') }}">
+        <!-- Chọn Học kỳ -->
+        <label for="semester_delete">Chọn Học kỳ:</label>
+        <select id="semester_delete" name="semester" required>
+            <option value="Học kỳ 1">Học kỳ 1</option>
+            <option value="Học kỳ 2">Học kỳ 2</option>
+            <option value="Học kỳ hè">Học kỳ hè</option>
+        </select>
+        <br>
+
+        <!-- Chọn năm -->
+        <label for="year_delete">Chọn năm:</label>
+        <select id="year_delete" name="year" required>
+            {% for year in years %}
+                <option value="{{ year }}">{{ year }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <!-- Nhập mã môn học cần xóa -->
+        <label for="course_code_delete">Mã môn học cần xóa:</label>
+        <input type="text" id="course_code_delete" name="course_code" required>
+        <br>
+
+        <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa môn học này?')">Xóa môn học</button>
+    </form>
+
+    <a href="{{ url_for('academic_records') }}">Quay lại</a>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kết quả học tập</title>
+</head>
+<body>
+    <h1>Kết quả học tập</h1>
+    <a href="{{ url_for('home') }}">Quay lại trang chủ</a>
+    <br><br>
+    <a href="{{ url_for('show_add_course_form') }}">Thêm/xóa môn đã học</a>
+    <br><br>
+    {% for record in academic_records %}
+    <h2>Kỳ học: {{ record.semester }}</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Mã môn học</th>
+                <th>Tên môn học</th>
+                <th>Số tín chỉ</th>
+                <th>Điểm quá trình</th>
+                <th>Điểm thi</th>
+                <th>Điểm tổng kết</th>
+                <th>Tình Trạng</th>
+            </tr>
+        </thead>
+        <tbody> 
+            {% for course in record.courses %}
+            <tr>
+                <td>{{ course.course_code }}</td>
+                <td>{{ course.course_name }}</td>
+                <td>{{ course.credits }}</td>
+                <td>{{ course.scores.process }}</td>
+                <td>{{ course.scores.final }}</td>
+                <td>{{ course.total_score }}</td>
+                <td>{{ course.complete }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p>Điểm trung bình kỳ: {{ record.semester_average }}</p>
+    <p>Số tín chỉ đã học: {{ record.credits_taken }}</p>
+    <hr>
+    {% endfor %}
+</body>
+</html>

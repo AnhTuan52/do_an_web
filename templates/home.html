@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang Chủ</title>
+</head>
+<body>
+    <h1>Chào mừng, {{ student.personal_info.full_name }}!</h1>
+    <h2>Thông tin sinh viên:</h2>
+    <img src="{{ student.personal_info.image }}" alt="Ảnh sinh viên" width="200">
+    <p>MSSV: {{ student.mssv }}</p>
+    <p>Họ tên: {{ student.personal_info.full_name }}</p>
+    <p>Lớp: {{ student.personal_info.class }}</p>
+    <p>Email: {{ student.personal_info.email.school }}</p>
+    <p>Điện thoại: {{ student.personal_info.phone }}</p>
+
+    <h2>Tiến độ học tập:</h2>
+    <p>Tổng số tín chỉ cần để tốt nghiệp: {{ student.progress.total_credits_required }}</p>
+    <p>Tổng số tín chỉ đã tích lũy: {{ student.summary.total_credits_taken }}</p>
+    <p>Điểm trung bình tích lũy: {{ student.summary.accumulated_average }}</p>
+
+    <!-- Nút Thông Báo -->
+    <a href="{{ url_for('view_notifications') }}" class="button">Thông Báo</a><br>
+
+    <!-- Các liên kết khác -->
+    <a href="{{ url_for('academic_records') }}" class="button">Xem kết quả học tập</a> <br>
+    <a href="{{ url_for('view_curriculum') }}" class="button">Xem chương trình đào tạo</a> <br>
+    <a href="{{ url_for('logout') }}" class="button">Đăng xuất</a>
+</body>
+</html>

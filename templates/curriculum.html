@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chương Trình Đào Tạo</title>
+</head>
+<body>
+    <h1>Chương Trình Đào Tạo</h1>
+    <a href="{{ url_for('home') }}">Quay lại trang chủ</a>
+    <br><br>
+
+    <!-- Hiển thị danh sách môn học theo từng category -->
+    {% for category, courses in curriculum.items() %}
+    <div class="category">
+        <h2>{{ category }}</h2>
+        <table class="course-table">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Mã môn học</th>
+                    <th>Tên môn học</th>
+                    <th>Số tín chỉ</th>
+                    <th>Lý thuyết</th>
+                    <th>Thực hành</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td>{{ course['STT'] }}</td>
+                    <td>{{ course['course_code'] }}</td>
+                    <td>{{ course['course_name'] }}</td>
+                    <td>{{ course['credits'] }}</td>
+                    <td>{{ course['theory'] }}</td>
+                    <td>{{ course['practice'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endfor %}
+</body>
+</html>
