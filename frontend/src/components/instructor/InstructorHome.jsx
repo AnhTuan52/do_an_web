@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import api from '../../utils/api';
-import { FaChalkboardTeacher, FaClipboardList, FaCalendarAlt, FaPlusCircle, FaBell, FaGraduationCap } from 'react-icons/fa';
+import { FaChalkboardTeacher, FaBell } from 'react-icons/fa';
 
-// Default data for instructor
+// Default data
 const defaultInstructor = {
     full_name: "Giảng viên",
     email: "instructor@example.com",
@@ -12,10 +12,6 @@ const defaultInstructor = {
     position: "Giảng viên"
 };
 
-// Default data for classes
-const defaultClasses = [];
-
-// Default notifications
 const defaultNotifications = [
     {
         id: 1,
@@ -34,123 +30,50 @@ const defaultNotifications = [
 ];
 
 function InstructorHome() {
-    // State for notifications
-    const [notifications, setNotifications] = useState(defaultNotifications);
+    const [notifications] = useState(defaultNotifications);
 
-    // Fetch instructor and classes data in one request
+    // Fetch instructor and classes data
     const { data, isLoading, error } = useQuery({
         queryKey: ['instructor-dashboard'],
         queryFn: async () => {
-            try {
-                // Sử dụng API endpoint /api/instructor/courses thay vì /api/instructor/profile
-                // vì endpoint này trả về cả thông tin giảng viên và danh sách lớp học
-                const response = await api.get('/api/instructor/courses');
-                console.log('Instructor dashboard response:', response.data);
-                console.log('Response data structure:', JSON.stringify(response.data, null, 2));
+            const response = await api.get('/api/instructor/courses');
 
-                if (response.data.status !== 'success') {
-                    throw new Error(response.data.message || 'Không thể tải thông tin giảng viên');
-                }
-
-                // Xử lý các cấu trúc dữ liệu khác nhau
-                let instructorData = {};
-                let coursesData = [];
-
-                // Kiểm tra cấu trúc dữ liệu
-                if (response.data.instructor && response.data.courses) {
-                    // Cấu trúc mới - có cả instructor và courses
-                    instructorData = response.data.instructor;
-                    coursesData = response.data.courses;
-                } else if (response.data.data) {
-                    // Cấu trúc cũ - chỉ có data
-                    coursesData = Array.isArray(response.data.data) ? response.data.data : [];
-
-                    // Nếu có instructor trong data
-                    if (response.data.instructor) {
-                        instructorData = response.data.instructor;
-                    }
-                }
-
-                console.log('Processed data:', {
-                    instructor: instructorData,
-                    coursesCount: coursesData.length
-                });
-
-                return {
-                    instructor: instructorData,
-                    courses: coursesData,
-                    status: response.data.status
-                };
-            } catch (error) {
-                console.error('Error fetching dashboard data:', error);
-                throw error;
+            if (response.data.status !== 'success') {
+                throw new Error(response.data.message || 'Không thể tải thông tin giảng viên');
             }
+
+            return {
+                instructor: response.data.instructor || {},
+                courses: response.data.courses || [],
+            };
         },
-        refetchOnMount: false,
-        refetchOnWindowFocus: false,
         staleTime: 1000 * 60 * 5,
     });
 
-    // Extract instructor data with safe defaults
-    let instructor = defaultInstructor;
-
-    try {
-        // Safely extract instructor data with null checks
-        if (data && typeof data === 'object' && data.instructor) {
-            instructor = data.instructor;
-        }
-    } catch (err) {
-        console.error('Error extracting instructor data:', err);
-    }
-
-
-    // Extract classes data with safe defaults
-    let classes = defaultClasses;
-    let classesLoading = isLoading;
-    let classesError = error;
-
-    try {
-        // Safely extract classes data with null checks
-        if (data && typeof data === 'object') {
-            if (Array.isArray(data.courses) && data.courses.length > 0) {
-                classes = data.courses;
-            }
-        }
-    } catch (err) {
-        console.error('Error extracting classes data:', err);
-    }
-
-    // classes đã được trích xuất ở trên
+    // Extract data with safe defaults
+    const instructor = data?.instructor || defaultInstructor;
+    const classes = data?.courses || [];
 
     // Loading state
-    if (isLoading || classesLoading) {
+    if (isLoading) {
         return <p className="m-4 text-gray-600">Đang tải dữ liệu...</p>;
     }
 
     // Error state
-    if (error || classesError) {
+    if (error) {
         return (
             <div className="m-4 p-4 border border-red-300 bg-red-50 rounded-md">
                 <h3 className="text-lg font-semibold text-red-700 mb-2">Lỗi khi tải dữ liệu</h3>
-                {error && (
-                    <p className="text-red-600 mb-2">
-                        <strong>Lỗi thông tin giảng viên:</strong> {error.message}
-                    </p>
-                )}
-                {classesError && (
-                    <p className="text-red-600 mb-2">
-                        <strong>Lỗi danh sách lớp học:</strong> {classesError.message}
-                    </p>
-                )}
+                <p className="text-red-600 mb-2">{error.message}</p>
             </div>
         );
     }
 
     return (
-        <div className="flex flex-col items-center w-full p-0 m-0 max-w-full max-h-full my-5 mx-auto p-3.5 bg-white rounded-lg">
+        <div className="flex flex-col items-center w-full my-5 mx-auto p-3.5 bg-white rounded-lg">
             {instructor ? (
                 <>
-                    <div className="welcome flex flex-1 flex-col justify-center p-0 m-0 mb-5 w-full max-w-[1200px]">
+                    <div className="welcome w-full max-w-[1200px] mb-5">
                         <div className="flex justify-between items-center">
                             <div>
                                 <h2 className="text-[40px] mb-3 text-gray-800 font-bold">Trang chủ Giảng viên</h2>
@@ -220,9 +143,7 @@ function InstructorHome() {
 
                         {/* Classes Information */}
                         <div className="bg-white p-5 rounded-lg shadow-md">
-                            <div className="flex justify-between items-center mb-4 border-b pb-2">
-                                <h4 className="text-lg font-bold text-gray-800">Lớp học đang giảng dạy</h4>
-                            </div>
+                            <h4 className="text-lg font-bold text-gray-800 mb-4 border-b pb-2">Lớp học đang giảng dạy</h4>
 
                             {classes && classes.length > 0 ? (
                                 <div className="overflow-x-auto">

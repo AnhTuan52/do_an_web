@@ -2,37 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '../../utils/api';
-import { formatSchedule, formatCredits, formatStatus, calculateTotalGrade } from '../../utils/courseUtils';
-import { FaArrowLeft, FaUserGraduate, FaClipboardList, FaCalendarAlt, FaSave, FaUndo, FaEdit, FaTimes, FaCheck, FaChartBar, FaExclamationTriangle, FaTrophy, FaSadTear } from 'react-icons/fa';
-import { Bar, Pie } from 'react-chartjs-2';
+import { calculateTotalGrade } from '../../utils/courseUtils';
+import { FaArrowLeft, FaUserGraduate, FaClipboardList, FaCalendarAlt, FaSave, FaUndo, FaEdit, FaChartBar } from 'react-icons/fa';
+import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 
-// Đăng ký các thành phần của Chart.js
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend,
-    ArcElement
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
 
 function ClassDetail() {
     const { classId } = useParams();
     const navigate = useNavigate();
     const queryClient = useQueryClient();
 
-    // Lưu classId vào localStorage khi thay đổi
     useEffect(() => {
         if (classId) {
             localStorage.setItem('lastClassId', classId);
-            // Invalidate queries khi classId thay đổi
             queryClient.invalidateQueries(['class-details', classId]);
         }
     }, [classId, queryClient]);
 
-    // State management
     const [activeTab, setActiveTab] = useState('details');
     const [editingStudentId, setEditingStudentId] = useState(null);
     const [editMode, setEditMode] = useState(false);
@@ -47,196 +35,88 @@ function ClassDetail() {
     const [hasChanges, setHasChanges] = useState(false);
     const [message, setMessage] = useState({ text: '', type: '' });
 
-    // Fetch course details
     const classDetailsQuery = useQuery({
         queryKey: ['class-details', classId],
         queryFn: async () => {
-            try {
-                const response = await api.get(`/api/instructor/courses/${classId}`);
+            const response = await api.get(`/api/instructor/courses/${classId}`);
+            const courseData = response.data.status === 'success' ?
+                (response.data.course || response.data.data) : response.data;
 
-                // Lấy dữ liệu khóa học từ response
-                let courseData;
-                if (response.data.status === 'success' && response.data.course) {
-                    courseData = response.data.course;
-                } else if (response.data.status === 'success' && response.data.data) {
-                    courseData = response.data.data;
-                } else {
-                    courseData = response.data;
-                }
+            const scheduleData = courseData.schedule || [];
+            const locationData = courseData.location ||
+                (scheduleData.length > 0 && scheduleData[0].location ? scheduleData[0].location : '');
 
-                // Xử lý grading_schema
-                const gradingSchema = courseData.grading_schema || {};
-                const gradingScale = gradingSchema.grading_scale || courseData.grading_scale || [];
-
-                // Chuẩn hóa trạng thái
-                const status = courseData.status || 'active';
-
-                // Xử lý schedule
-                const scheduleData = courseData.schedule || [];
-                const locationData = courseData.location ||
-                    (scheduleData.length > 0 && scheduleData[0].location ? scheduleData[0].location : '');
-
-                // Tạo đối tượng dữ liệu đã xử lý
-                return {
-                    _id: courseData._id,
-                    course_name: courseData.course_name || 'N/A',
-                    course_code: courseData.course_code || 'N/A',
+            return {
+                _id: courseData._id,
+                course_name: courseData.course_name || 'N/A',
+                course_code: courseData.course_code || 'N/A',
+                class_code: courseData.class_code || 'N/A',
+                credits: courseData.credits || null,
+                description: courseData.description || '',
+                department: courseData.department || 'Khoa Công nghệ Thông tin',
+                semester: courseData.semester || 'HK1',
+                academic_year: courseData.academic_year || '2023-2024',
+                schedule: scheduleData,
+                location: locationData,
+                students: courseData.students || [],
+                students_count: courseData.students?.length || 0,
+                status: courseData.status || 'active',
+                course_info: {
+                    name: courseData.course_name || 'N/A',
+                    code: courseData.course_code || 'N/A',
                     class_code: courseData.class_code || 'N/A',
                     credits: courseData.credits || null,
-                    description: courseData.description || '',
-                    department: courseData.department || 'Khoa Công nghệ Thông tin',
+                    department: courseData.department || 'Khoa Công nghệ Thông tin'
+                },
+                semester_info: {
                     semester: courseData.semester || 'HK1',
-                    academic_year: courseData.academic_year || '2023-2024',
-                    start_date: courseData.start_date || new Date().toISOString(),
-                    end_date: courseData.end_date || new Date().toISOString(),
-                    schedule: scheduleData,
-                    location: locationData,
-                    max_enrollment: courseData.max_enrollment || 50,
-                    students: courseData.students || [],  // Lưu trữ danh sách sinh viên
-                    students_count: courseData.students?.length || 0,
-                    status: status,
-                    course_info: {
-                        name: courseData.course_name || 'N/A',
-                        code: courseData.course_code || 'N/A',
-                        class_code: courseData.class_code || 'N/A',
-                        credits: courseData.credits || null,
-                        description: courseData.description || '',
-                        department: courseData.department || 'Khoa Công nghệ Thông tin'
-                    },
-                    semester_info: {
-                        semester: courseData.semester || 'HK1',
-                        academic_year: courseData.academic_year || '2023-2024',
-                        start_date: courseData.start_date || new Date().toISOString(),
-                        end_date: courseData.end_date || new Date().toISOString()
-                    },
-                    schedule: scheduleData.length > 0 ? {
-                        day_of_week: scheduleData[0]?.day || scheduleData[0]?.day_of_week || 'N/A',
-                        start_time: scheduleData[0]?.start_time || '',
-                        end_time: scheduleData[0]?.end_time || '',
-                        room: locationData || ''
-                    } : null,
-                    enrollment: {
-                        max_students: courseData.max_enrollment || 50,
-                        current_students: courseData.students?.length || 0,
-                        status: status
-                    },
-                    grading_policy: {
-                        midterm_weight: gradingSchema.midterm_weight || 0.3,
-                        final_weight: gradingSchema.final_weight || 0.5,
-                        assignments_weight: gradingSchema.assignments_weight || 0.2,
-                        attendance_weight: gradingSchema.attendance_weight || 0,
-                        grading_scale: gradingScale
-                    }
-                };
-            } catch (error) {
-                console.error('Lỗi khi lấy thông tin khóa học:', error);
-                throw error;
-            }
+                    academic_year: courseData.academic_year || '2023-2024'
+                },
+                schedule: scheduleData.length > 0 ? {
+                    day_of_week: scheduleData[0]?.day || scheduleData[0]?.day_of_week || 'N/A',
+                    start_time: scheduleData[0]?.start_time || '',
+                    end_time: scheduleData[0]?.end_time || '',
+                    room: locationData || ''
+                } : null
+            };
         },
         enabled: !!classId,
-        staleTime: 1000 * 60 * 5, // 5 phút
+        staleTime: 1000 * 60 * 5,
     });
 
-    // Không cần fetch students riêng vì đã có trong dữ liệu khóa học
-
-    // Lấy dữ liệu từ queries
     const classDetails = classDetailsQuery.data;
     const classLoading = classDetailsQuery.isLoading;
     const classError = classDetailsQuery.error;
 
-    // Lấy danh sách sinh viên trực tiếp từ dữ liệu khóa học
+    // Lấy danh sách sinh viên từ dữ liệu khóa học
     const students = React.useMemo(() => {
-        try {
-            // Kiểm tra dữ liệu khóa học tồn tại
-            if (!classDetails) {
-                console.log('Không có dữ liệu khóa học');
-                return [];
-            }
+        if (!classDetails) return [];
 
-            // Kiểm tra và xử lý dữ liệu sinh viên an toàn
-            let studentsData = [];
+        const studentsData = Array.isArray(classDetails.students) ? classDetails.students : [];
 
-            // Kiểm tra nhiều cấu trúc dữ liệu có thể có
-            if (Array.isArray(classDetails.students)) {
-                studentsData = classDetails.students;
-            } else if (classDetails.data && Array.isArray(classDetails.data.students)) {
-                studentsData = classDetails.data.students;
-            } else if (classDetails.course && Array.isArray(classDetails.course.students)) {
-                studentsData = classDetails.course.students;
-            }
+        return studentsData
+            .filter(student => student)
+            .map(student => {
+                const studentId = student.student_id || student._id || 'unknown';
+                const grades = student.grades || {};
 
-            console.log('Dữ liệu sinh viên thô:', studentsData);
-
-            // Nếu không có sinh viên, trả về mảng rỗng
-            if (!Array.isArray(studentsData) || studentsData.length === 0) {
-                console.log('Danh sách sinh viên rỗng hoặc không phải mảng');
-                return [];
-            }
-
-            // Xử lý dữ liệu sinh viên với kiểm tra null/undefined
-            const processedStudents = studentsData
-                .filter(student => student) // Lọc bỏ các giá trị null/undefined
-                .map(student => {
-                    try {
-                        // Xử lý ID sinh viên từ MongoDB an toàn hơn
-                        let studentId = '';
-
-                        if (student.student_id) {
-                            if (student.student_id.$oid) {
-                                studentId = student.student_id.$oid;
-                            } else if (typeof student.student_id === 'object' && student.student_id.toString) {
-                                studentId = student.student_id.toString();
-                            } else {
-                                studentId = student.student_id;
-                            }
-                        } else if (student._id) {
-                            studentId = typeof student._id === 'object' ? student._id.toString() : student._id;
-                        } else {
-                            studentId = 'unknown';
-                        }
-
-                        // Xử lý điểm số an toàn
-                        const grades = student.grades || {};
-
-                        // Tạo đối tượng sinh viên đã xử lý
-                        return {
-                            _id: student._id?.$oid ||
-                                (typeof student._id === 'object' && student._id.toString) ?
-                                student._id.toString() : student._id || 'unknown',
-                            student_id: studentId,
-                            full_name: student.full_name || student.name || 'N/A',
-                            mssv: student.mssv || 'N/A',
-                            email: student.email || 'N/A',
-                            class: student.class || 'N/A',
-                            status: student.status || 'active',
-                            grades: {
-                                midterm: grades.midterm !== undefined ? parseFloat(grades.midterm) : null,
-                                final: grades.final !== undefined ? parseFloat(grades.final) : null,
-                                assignments: grades.assignments !== undefined ? parseFloat(grades.assignments) : null,
-                                attendance: grades.attendance !== undefined ? parseFloat(grades.attendance) : null,
-                                total: grades.total !== undefined ? parseFloat(grades.total) : null
-                            }
-                        };
-                    } catch (err) {
-                        console.error('Lỗi khi xử lý sinh viên:', err, student);
-                        // Trả về null để lọc bỏ sau này
-                        return null;
+                return {
+                    _id: student._id || 'unknown',
+                    student_id: studentId,
+                    full_name: student.full_name || student.name || 'N/A',
+                    mssv: student.mssv || 'N/A',
+                    email: student.email || 'N/A',
+                    class: student.class || 'N/A',
+                    grades: {
+                        midterm: grades.midterm !== undefined ? parseFloat(grades.midterm) : null,
+                        final: grades.final !== undefined ? parseFloat(grades.final) : null,
+                        assignments: grades.assignments !== undefined ? parseFloat(grades.assignments) : null,
+                        attendance: grades.attendance !== undefined ? parseFloat(grades.attendance) : null,
+                        total: grades.total !== undefined ? parseFloat(grades.total) : null
                     }
-                })
-                .filter(Boolean); // Lọc bỏ các giá trị null từ lỗi xử lý
-
-            console.log('Danh sách sinh viên đã xử lý:', processedStudents);
-            return processedStudents;
-        } catch (error) {
-            console.error('Lỗi trong quá trình xử lý danh sách sinh viên:', error);
-            // Trả về mảng rỗng trong trường hợp lỗi
-            return [];
-        }
+                };
+            });
     }, [classDetails]);
-
-
-    const studentsLoading = classLoading;
-    const studentsError = classError;
 
     // Tính toán thống kê điểm số
     const gradeStats = React.useMemo(() => {
@@ -244,14 +124,10 @@ function ClassDetail() {
             return {
                 averageGrade: 0,
                 highestGrade: { value: 0, student: null },
-                lowestGrade: { value: 10, student: null },
+                lowestGrade: { value: 0, student: null },
                 belowAverageCount: 0,
                 gradeDistribution: {
-                    excellent: 0, // 9.0-10
-                    good: 0,      // 8.0-8.9
-                    average: 0,   // 6.5-7.9
-                    belowAverage: 0, // 5.0-6.49
-                    poor: 0       // 0-4.99
+                    excellent: 0, good: 0, average: 0, belowAverage: 0, poor: 0
                 }
             };
         }
@@ -261,50 +137,30 @@ function ClassDetail() {
         let lowest = { value: 11, student: null };
         let belowAverageCount = 0;
         let gradeDistribution = {
-            excellent: 0, // 9.0-10
-            good: 0,      // 8.0-8.9
-            average: 0,   // 6.5-7.9
-            belowAverage: 0, // 5.0-6.49
-            poor: 0       // 0-4.99
+            excellent: 0, good: 0, average: 0, belowAverage: 0, poor: 0
         };
 
-        // Tính toán các giá trị thống kê
         students.forEach(student => {
             const totalGrade = student.grades.total !== null ? student.grades.total : 0;
-
-            // Tổng điểm để tính trung bình
             sum += totalGrade;
 
-            // Tìm điểm cao nhất
             if (totalGrade > highest.value) {
                 highest = { value: totalGrade, student: student };
             }
 
-            // Tìm điểm thấp nhất (chỉ xét những sinh viên có điểm)
             if (totalGrade < lowest.value && totalGrade > 0) {
                 lowest = { value: totalGrade, student: student };
             }
 
-            // Phân loại điểm
-            if (totalGrade >= 9.0) {
-                gradeDistribution.excellent++;
-            } else if (totalGrade >= 8.0) {
-                gradeDistribution.good++;
-            } else if (totalGrade >= 6.5) {
-                gradeDistribution.average++;
-            } else if (totalGrade >= 5.0) {
-                gradeDistribution.belowAverage++;
-            } else {
-                gradeDistribution.poor++;
-            }
+            if (totalGrade >= 9.0) gradeDistribution.excellent++;
+            else if (totalGrade >= 8.0) gradeDistribution.good++;
+            else if (totalGrade >= 6.5) gradeDistribution.average++;
+            else if (totalGrade >= 5.0) gradeDistribution.belowAverage++;
+            else gradeDistribution.poor++;
 
-            // Đếm số sinh viên dưới trung bình
-            if (totalGrade < 5.0) {
-                belowAverageCount++;
-            }
+            if (totalGrade < 5.0) belowAverageCount++;
         });
 
-        // Tính điểm trung bình
         const averageGrade = students.length > 0 ? (sum / students.length).toFixed(2) : 0;
 
         return {
@@ -319,7 +175,6 @@ function ClassDetail() {
     // Update grades mutation
     const updateGradesMutation = useMutation({
         mutationFn: async ({ studentId, gradesData }) => {
-            // Chuyển đổi dữ liệu điểm số sang định dạng phù hợp
             const formattedGrades = {
                 midterm: gradesData.midterm !== null ? gradesData.midterm.toString() : null,
                 final: gradesData.final !== null ? gradesData.final.toString() : null,
@@ -328,32 +183,17 @@ function ClassDetail() {
                 total: gradesData.total !== null ? gradesData.total.toString() : null
             };
 
-            // Log dữ liệu gửi đi để debug
-            console.log('Dữ liệu gửi đi:', {
-                url: `/api/instructor/courses/${classId}/students/${studentId}/grades`,
+            const response = await api.put(`/api/instructor/courses/${classId}/students/${studentId}/grades`, {
                 grades: formattedGrades
             });
 
-            try {
-                // Gọi API để cập nhật điểm số
-                const response = await api.put(`/api/instructor/courses/${classId}/students/${studentId}/grades`, {
-                    grades: formattedGrades
-                });
-
-                console.log('Kết quả cập nhật điểm:', response.data);
-                return response.data;
-            } catch (error) {
-                console.error('Lỗi khi cập nhật điểm:', error.response?.data || error.message);
-                throw error;
-            }
+            return response.data;
         },
         onSuccess: () => {
             setMessage({ text: 'Cập nhật điểm số thành công', type: 'success' });
             setTimeout(() => setMessage({ text: '', type: '' }), 3000);
             setEditMode(false);
             setEditingStudentId(null);
-
-            // Invalidate queries để refetch dữ liệu mới
             queryClient.invalidateQueries(['class-details', classId]);
         },
         onError: (error) => {
@@ -366,20 +206,15 @@ function ClassDetail() {
     const handleEditClick = (student) => {
         setEditingStudentId(student.student_id);
         setEditMode(true);
-        setGrades({
+        const studentGrades = {
             midterm: student.grades.midterm !== null ? student.grades.midterm : '',
             final: student.grades.final !== null ? student.grades.final : '',
             assignments: student.grades.assignments !== null ? student.grades.assignments : '',
             attendance: student.grades.attendance !== null ? student.grades.attendance : '',
             total: student.grades.total !== null ? student.grades.total : ''
-        });
-        setOriginalGrades({
-            midterm: student.grades.midterm !== null ? student.grades.midterm : '',
-            final: student.grades.final !== null ? student.grades.final : '',
-            assignments: student.grades.assignments !== null ? student.grades.assignments : '',
-            attendance: student.grades.attendance !== null ? student.grades.attendance : '',
-            total: student.grades.total !== null ? student.grades.total : ''
-        });
+        };
+        setGrades(studentGrades);
+        setOriginalGrades(studentGrades);
         setHasChanges(false);
     };
 
@@ -391,9 +226,7 @@ function ClassDetail() {
         setGrades(prev => {
             const newGrades = { ...prev, [name]: numValue };
 
-            // Tính điểm tổng nếu có đủ thông tin
-            if (classDetails && newGrades.midterm !== '' && newGrades.final !== '') {
-                // Sử dụng trọng số mặc định nếu không có trong classDetails
+            if (newGrades.midterm !== '' && newGrades.final !== '') {
                 const weights = {
                     midterm_weight: 0.3,
                     final_weight: 0.5,
@@ -418,7 +251,6 @@ function ClassDetail() {
 
     // Xử lý khi lưu điểm
     const handleSaveGrades = () => {
-        // Chuyển đổi giá trị điểm từ chuỗi sang số
         const numericGrades = {
             midterm: grades.midterm === '' ? null : parseFloat(grades.midterm),
             final: grades.final === '' ? null : parseFloat(grades.final),
@@ -427,7 +259,6 @@ function ClassDetail() {
             total: grades.total === '' ? null : parseFloat(grades.total)
         };
 
-        // Gọi mutation để cập nhật điểm
         updateGradesMutation.mutate({
             studentId: editingStudentId,
             gradesData: numericGrades

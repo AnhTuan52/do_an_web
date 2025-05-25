@@ -18,14 +18,14 @@ function InstructorDashboard() {
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                // Có thể thêm API call để lấy thống kê ở đây
-                // Ví dụ: const response = await api.get('/instructor/stats');
+                const response = await api.get('/api/instructor/stats');
 
-                // Tạm thời dùng dữ liệu mẫu
-                setInstructorStats({
-                    totalCourses: 5,
-                    activeCourses: 3
-                });
+                if (response.data?.status === 'success') {
+                    setInstructorStats({
+                        totalCourses: response.data.totalCourses || 0,
+                        activeCourses: response.data.activeCourses || 0
+                    });
+                }
             } catch (error) {
                 console.error('Lỗi khi lấy thống kê:', error);
             } finally {
@@ -60,3 +60,4 @@ function InstructorDashboard() {
 }
 
 export default InstructorDashboard;
+

@@ -5,7 +5,7 @@ import Login from "/src/components/Login.jsx";
 import UserPage from "/src/components/UserPage.jsx";
 import InstructorLogin from "/src/components/instructor/InstructorLogin.jsx";
 import InstructorPage from "/src/components/instructor/InstructorPage.jsx";
-import TestPage from "/src/components/instructor/TestPage.jsx";
+
 import AdminLogin from "/src/components/admin/AdminLogin.jsx";
 import AdminPage from "/src/components/admin/AdminPage.jsx";
 // import StudentListPage from "/src/components/instructor/StudentListPage.jsx"; // Removed

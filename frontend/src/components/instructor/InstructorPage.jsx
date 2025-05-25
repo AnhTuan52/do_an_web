@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Link, useNavigate, useLocation, useParams, Outlet } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Sidebar from "../Sidebar.jsx";
 import api from '../../utils/api';
-import { FaSearch, FaFilter, FaChalkboardTeacher, FaArrowLeft, FaEdit } from 'react-icons/fa';
 
 // Import các component con
 import InstructorDashboard from "./InstructorDashboard.jsx";
 import InstructorHome from "./InstructorHome.jsx";
 import ClassDetail from "./ClassDetail.jsx";
 import GradeManagement from "./GradeManagement.jsx";
-// Student-related components removed
-import TestPage from "./TestPage.jsx";
-
-import AttendanceManagement from "./AttendanceManagement.jsx";
-// ManageStudents component removed
 
 
 /**
@@ -30,17 +24,9 @@ function InstructorPage() {
         const fetchInstructorProfile = async () => {
             try {
                 const response = await api.get('/api/instructor/profile');
-                console.log('InstructorPage - Profile response:', response.data);
 
                 if (response.data.status === 'success') {
-                    // Kiểm tra cấu trúc dữ liệu
-                    if (response.data.data) {
-                        setInstructor(response.data.data);
-                    } else if (response.data.instructor) {
-                        setInstructor(response.data.instructor);
-                    } else {
-                        console.error('Cấu trúc dữ liệu không đúng:', response.data);
-                    }
+                    setInstructor(response.data.instructor || response.data.data || null);
                 }
             } catch (error) {
                 console.error('Lỗi khi lấy thông tin giảng viên:', error);
@@ -73,29 +59,22 @@ function InstructorPage() {
                             <Route path="classes/:classId" element={<ClassDetail />} />
                             <Route path="classes/:classId/grades" element={<GradeManagement />} />
                             <Route path="classes/:classId/grades/:studentId" element={<GradeManagement />} />
-                            <Route path="classes/:classId/attendance" element={<AttendanceManagement />} />
 
                             {/* Courses routes (aliases for classes) */}
                             <Route path="courses/:classId" element={<ClassDetail />} />
                             <Route path="courses/:classId/grades" element={<GradeManagement />} />
                             <Route path="courses/:classId/grades/:studentId" element={<GradeManagement />} />
-                            <Route path="courses/:classId/attendance" element={<AttendanceManagement />} />
 
                             {/* Dashboard routes (aliases for courses) */}
                             <Route path="dashboard/courses/:classId" element={<ClassDetail />} />
                             <Route path="dashboard/courses/:classId/grades" element={<GradeManagement />} />
                             <Route path="dashboard/courses/:classId/grades/:studentId" element={<GradeManagement />} />
-                            <Route path="dashboard/courses/:classId/attendance" element={<AttendanceManagement />} />
                             <Route path="dashboard/courses/:classId/students" element={<ClassDetail />} />
 
                             {/* Students routes - removed */}
                             {/* <Route path="students" element={<ManageStudents />} /> */}
 
-                            {/* Attendance overview route */}
-                            <Route path="attendance" element={<AttendanceManagement />} />
-
-                            {/* Test route */}
-                            <Route path="test" element={<TestPage />} />
+                            {/* Test route - removed */}
                         </Route>
                     </Routes>
                 )}
