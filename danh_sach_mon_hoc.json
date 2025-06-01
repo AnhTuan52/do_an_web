@@ -1,0 +1,671 @@
+{
+    "major": "Hệ thống Thông tin",
+    "curriculum": [
+        {
+            "STT": 1,
+            "course_code": "SS003",
+            "course_name": "Tư tưởng Hồ Chí Minh",
+            "credits": 2,
+            "theory": 2,
+            "practice": 0,
+            "category": "Chính trị - Pháp luật - Kỹ năng - Thể chất - Quốc phòng",
+            "prerequisite": null
+        },
+        {
+            "STT": 2,
+            "course_code": "SS007",
+            "course_name": "Triết học Mác - Lênin",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Chính trị - Pháp luật - Kỹ năng - Thể chất - Quốc phòng",
+            "prerequisite": null
+        },
+        {
+            "STT": 3,
+            "course_code": "SS008",
+            "course_name": "Kinh tế chính trị Mác - Lênin",
+            "credits": 2,
+            "theory": 2,
+            "practice": 0,
+            "category": "Chính trị - Pháp luật - Kỹ năng - Thể chất - Quốc phòng",
+            "prerequisite": null
+        },
+        {
+            "STT": 4,
+            "course_code": "SS009",
+            "course_name": "Chủ nghĩa xã hội khoa học",
+            "credits": 2,
+            "theory": 2,
+            "practice": 0,
+            "category": "Chính trị - Pháp luật - Kỹ năng - Thể chất - Quốc phòng",
+            "prerequisite": null
+        },
+        {
+            "STT": 5,
+            "course_code": "SS010",
+            "course_name": "Lịch sử Đảng Cộng sản Việt Nam",
+            "credits": 2,
+            "theory": 2,
+            "practice": 0,
+            "category": "Chính trị - Pháp luật - Kỹ năng - Thể chất - Quốc phòng",
+            "prerequisite": null
+        },
+        {
+            "STT": 6,
+            "course_code": "SS004",
+            "course_name": "Kỹ năng nghề nghiệp",
+            "credits": 2,
+            "theory": 2,
+            "practice": 0,
+            "category": "Chính trị - Pháp luật - Kỹ năng - Thể chất - Quốc phòng",
+            "prerequisite": null
+        },
+        {
+            "STT": 7,
+            "course_code": "SS006",
+            "course_name": "Pháp luật đại cương",
+            "credits": 2,
+            "theory": 2,
+            "practice": 0,
+            "category": "Chính trị - Pháp luật - Kỹ năng - Thể chất - Quốc phòng",
+            "prerequisite": null
+        },
+        {
+            "STT": 8,
+            "course_code": "PE231",
+            "course_name": "Giáo dục thể chất 1",
+            "credits": "Tính riêng",
+            "theory": "",
+            "practice": "",
+            "category": "Chính trị - Pháp luật - Kỹ năng - Thể chất - Quốc phòng",
+            "prerequisite": null
+        },
+        {
+            "STT": 9,
+            "course_code": "PE232",
+            "course_name": "Giáo dục thể chất 2",
+            "credits": "Tính riêng",
+            "theory": "",
+            "practice": "",
+            "category": "Chính trị - Pháp luật - Kỹ năng - Thể chất - Quốc phòng",
+            "prerequisite": "PE231"
+        },
+        {
+            "STT": 10,
+            "course_code": "ME001",
+            "course_name": "Giáo dục quốc phòng",
+            "credits": "Tính riêng",
+            "theory": "",
+            "practice": "",
+            "category": "Chính trị - Pháp luật - Kỹ năng - Thể chất - Quốc phòng",
+            "prerequisite": null
+        },
+        {
+            "STT": 11,
+            "course_code": "MA003",
+            "course_name": "Đại số tuyến tính",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Toán - Tin học - Tự nhiên",
+            "prerequisite": null
+        },
+        {
+            "STT": 12,
+            "course_code": "MA004",
+            "course_name": "Cấu trúc rời rạc",
+            "credits": 4,
+            "theory": 4,
+            "practice": 0,
+            "category": "Toán - Tin học - Tự nhiên",
+            "prerequisite": null
+        },
+        {
+            "STT": 13,
+            "course_code": "MA005",
+            "course_name": "Xác suất thống kê",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Toán - Tin học - Tự nhiên",
+            "prerequisite": null
+        },
+        {
+            "STT": 14,
+            "course_code": "MA006",
+            "course_name": "Giải tích",
+            "credits": 4,
+            "theory": 4,
+            "practice": 0,
+            "category": "Toán - Tin học - Tự nhiên",
+            "prerequisite": null
+        },
+        {
+            "STT": 15,
+            "course_code": "IT001",
+            "course_name": "Nhập môn Lập trình",
+            "credits": 4,
+            "theory": 3,
+            "practice": 1,
+            "category": "Toán - Tin học - Tự nhiên",
+            "prerequisite": null
+        },
+        {
+            "STT": 16,
+            "course_code": "ENG01",
+            "course_name": "Anh văn 1",
+            "credits": 4,
+            "theory": 4,
+            "practice": 0,
+            "category": "Ngoại ngữ",
+            "prerequisite": null
+        },
+        {
+            "STT": 17,
+            "course_code": "ENG02",
+            "course_name": "Anh văn 2",
+            "credits": 4,
+            "theory": 4,
+            "practice": 0,
+            "category": "Ngoại ngữ",
+            "prerequisite": "ENG01"
+        },
+        {
+            "STT": 18,
+            "course_code": "ENG03",
+            "course_name": "Anh văn 3",
+            "credits": 4,
+            "theory": 4,
+            "practice": 0,
+            "category": "Ngoại ngữ",
+            "prerequisite": "ENG02"
+        },
+        {
+            "STT": 19,
+            "course_code": "IT002",
+            "course_name": "Lập trình hướng đối tượng",
+            "credits": 4,
+            "theory": 3,
+            "practice": 1,
+            "category": "Khối kiến thức cơ sở ngành",
+            "prerequisite": "IT001"
+        },
+        {
+            "STT": 20,
+            "course_code": "IT003",
+            "course_name": "Cấu trúc dữ liệu và giải thuật",
+            "credits": 4,
+            "theory": 3,
+            "practice": 1,
+            "category": "Khối kiến thức cơ sở ngành",
+            "prerequisite": "IT002"
+        },
+        {
+            "STT": 21,
+            "course_code": "IT004",
+            "course_name": "Cơ sở dữ liệu",
+            "credits": 4,
+            "theory": 3,
+            "practice": 1,
+            "category": "Khối kiến thức cơ sở ngành",
+            "prerequisite": null
+        },
+        {
+            "STT": 22,
+            "course_code": "IT005",
+            "course_name": "Nhập môn mạng máy tính",
+            "credits": 4,
+            "theory": 3,
+            "practice": 1,
+            "category": "Khối kiến thức cơ sở ngành",
+            "prerequisite": null
+        },
+        {
+            "STT": 23,
+            "course_code": "IT007",
+            "course_name": "Hệ điều hành",
+            "credits": 4,
+            "theory": 3,
+            "practice": 1,
+            "category": "Khối kiến thức cơ sở ngành",
+            "prerequisite": null
+        },
+        {
+            "STT": 24,
+            "course_code": "IT010",
+            "course_name": "Tổ chức và cấu trúc máy tính",
+            "credits": 2,
+            "theory": 2,
+            "practice": 0,
+            "category": "Khối kiến thức cơ sở ngành",
+            "prerequisite": null
+        },
+        {
+            "STT": 25,
+            "course_code": "IS005",
+            "course_name": "Giới thiệu ngành Hệ thống thông tin",
+            "credits": 1,
+            "theory": 1,
+            "practice": 0,
+            "category": "Khối kiến thức cơ sở ngành",
+            "prerequisite": null
+        },
+        {
+            "STT": 26,
+            "course_code": "IS201",
+            "course_name": "Phân tích thiết kế hệ thống thông tin",
+            "credits": 4,
+            "theory": 3,
+            "practice": 1,
+            "category": "Khối kiến thức chuyên ngành",
+            "prerequisite": [
+                "IT003",
+                "IT004"
+            ]
+        },
+        {
+            "STT": 27,
+            "course_code": "IS207",
+            "course_name": "Phát triển ứng dụng web",
+            "credits": 4,
+            "theory": 3,
+            "practice": 1,
+            "category": "Khối kiến thức chuyên ngành",
+            "prerequisite": "IT002"
+        },
+        {
+            "STT": 28,
+            "course_code": "IS208",
+            "course_name": "Quản lý dự án CNTT",
+            "credits": 4,
+            "theory": 3,
+            "practice": 1,
+            "category": "Khối kiến thức chuyên ngành - HTTT quản lý",
+            "prerequisite": null
+        },
+        {
+            "STT": 29,
+            "course_code": "IS210",
+            "course_name": "Hệ quản trị cơ sở dữ liệu",
+            "credits": 4,
+            "theory": 3,
+            "practice": 1,
+            "category": "Khối kiến thức chuyên ngành - HTTT quản lý",
+            "prerequisite": "IT004"
+        },
+        {
+            "STT": 30,
+            "course_code": "IS211",
+            "course_name": "Cơ sở dữ liệu phân tán",
+            "credits": 4,
+            "theory": 3,
+            "practice": 1,
+            "category": "Khối kiến thức chuyên ngành - HTTT quản lý",
+            "prerequisite": "IS210"
+        },
+        {
+            "STT": 31,
+            "course_code": "IS216",
+            "course_name": "Lập trình Java",
+            "credits": 4,
+            "theory": 3,
+            "practice": 1,
+            "category": "Khối kiến thức chuyên ngành",
+            "prerequisite": "IT002"
+        },
+        {
+            "STT": 32,
+            "course_code": "IS217",
+            "course_name": "Kho dữ liệu và OLAP",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối kiến thức chuyên ngành",
+            "prerequisite": "IT004"
+        },
+        {
+            "STT": 33,
+            "course_code": "IS252",
+            "course_name": "Khai thác dữ liệu",
+            "credits": 4,
+            "theory": 3,
+            "practice": 1,
+            "category": "Khối kiến thức chuyên ngành - HTTT quản lý",
+            "prerequisite": [
+                "IT004",
+                "MA005"
+            ]
+        },
+        {
+            "STT": 34,
+            "course_code": "IS336",
+            "course_name": "Hoạch định nguồn lực doanh nghiệp",
+            "credits": 4,
+            "theory": 3,
+            "practice": 1,
+            "category": "Khối kiến thức chuyên ngành - HTTT quản lý",
+            "prerequisite": null
+        },
+        {
+            "STT": 35,
+            "course_code": "IS403",
+            "course_name": "Phân tích dữ liệu kinh doanh",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối kiến thức chuyên ngành - HTTT quản lý",
+            "prerequisite": null
+        },
+        {
+            "STT": 36,
+            "course_code": "IS405",
+            "course_name": "Dữ liệu lớn",
+            "credits": 4,
+            "theory": 3,
+            "practice": 1,
+            "category": "Khối kiến thức chuyên ngành - HTTT quản lý",
+            "prerequisite": null
+        },
+        {
+            "STT": 37,
+            "course_code": "NT118",
+            "course_name": "Phát triển ứng dụng trên thiết bị di động",
+            "credits": 3,
+            "theory": 2,
+            "practice": 1,
+            "category": "Khối kiến thức chuyên ngành - HTTT quản lý",
+            "prerequisite": "IT002"
+        },
+        {
+            "STT": 38,
+            "course_code": "IS344",
+            "course_name": "Quản trị nguồn lực y tế",
+            "credits": 3,
+            "theory": 2,
+            "practice": 1,
+            "category": "Khối kiến thức chuyên ngành - HTTT y tế",
+            "prerequisite": null
+        },
+        {
+            "STT": 39,
+            "course_code": "IS345",
+            "course_name": "AI trong y tế",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối kiến thức chuyên ngành - HTTT y tế",
+            "prerequisite": null
+        },
+        {
+            "STT": 40,
+            "course_code": "IS346",
+            "course_name": "Quản lý dự án CNTT y tế",
+            "credits": 3,
+            "theory": 2,
+            "practice": 1,
+            "category": "Khối kiến thức chuyên ngành - HTTT y tế",
+            "prerequisite": null
+        },
+        {
+            "STT": 41,
+            "course_code": "IS347",
+            "course_name": "Thống kê y học",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối kiến thức chuyên ngành - HTTT y tế",
+            "prerequisite": null
+        },
+        {
+            "STT": 42,
+            "course_code": "IS348",
+            "course_name": "Dịch tễ học",
+            "credits": 3,
+            "theory": 2,
+            "practice": 1,
+            "category": "Khối kiến thức chuyên ngành - HTTT y tế",
+            "prerequisite": null
+        },
+        {
+            "STT": 43,
+            "course_code": "IS349",
+            "course_name": "Hệ thống y tế",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối kiến thức chuyên ngành - HTTT y tế",
+            "prerequisite": null
+        },
+        {
+            "STT": 44,
+            "course_code": "IS350",
+            "course_name": "Xử lý ảnh y khoa",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối kiến thức chuyên ngành - HTTT y tế",
+            "prerequisite": null
+        },
+        {
+            "STT": 45,
+            "course_code": "IS360",
+            "course_name": "Quản lý chăm sóc và điều trị",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối kiến thức chuyên ngành - HTTT y tế",
+            "prerequisite": null
+        },
+        {
+            "STT": 46,
+            "course_code": "IS361",
+            "course_name": "Quản lý chuỗi cung ứng dược & thiết bị y tế",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối kiến thức chuyên ngành - HTTT y tế",
+            "prerequisite": null
+        },
+        {
+            "STT": 47,
+            "course_code": "IS362",
+            "course_name": "Quản trị tài chính và bảo hiểm y tế",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối kiến thức chuyên ngành - HTTT y tế",
+            "prerequisite": null
+        },
+        {
+            "STT": 48,
+            "course_code": "IS232",
+            "course_name": "Hệ thống thông tin kế toán",
+            "credits": 4,
+            "theory": 4,
+            "practice": 0,
+            "category": "Khối tự chọn",
+            "prerequisite": null
+        },
+        {
+            "STT": 49,
+            "course_code": "IS251",
+            "course_name": "Nhập môn HTTT địa lý",
+            "credits": 4,
+            "theory": 3,
+            "practice": 1,
+            "category": "Khối tự chọn",
+            "prerequisite": null
+        },
+        {
+            "STT": 50,
+            "course_code": "IS254",
+            "course_name": "Hệ hỗ trợ quyết định",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối tự chọn",
+            "prerequisite": null
+        },
+        {
+            "STT": 51,
+            "course_code": "IS334",
+            "course_name": "Thương mại điện tử",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối tự chọn",
+            "prerequisite": null
+        },
+        {
+            "STT": 52,
+            "course_code": "IS335",
+            "course_name": "An toàn & bảo mật HTTT",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối tự chọn",
+            "prerequisite": [
+                "IT007",
+                "IT005",
+                " IT004"
+            ]
+        },
+        {
+            "STT": 53,
+            "course_code": "IS339",
+            "course_name": "Sinh tin học",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối tự chọn",
+            "prerequisite": null
+        },
+        {
+            "STT": 54,
+            "course_code": "IS351",
+            "course_name": "Phân tích không gian",
+            "credits": 4,
+            "theory": 3,
+            "practice": 1,
+            "category": "Khối tự chọn",
+            "prerequisite": null
+        },
+        {
+            "STT": 55,
+            "course_code": "IS354",
+            "course_name": "Công nghệ tài chính Fintech",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối tự chọn",
+            "prerequisite": null
+        },
+        {
+            "STT": 56,
+            "course_code": "IS356",
+            "course_name": "Agile IT với DevOps",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối tự chọn",
+            "prerequisite": null
+        },
+        {
+            "STT": 57,
+            "course_code": "IS357",
+            "course_name": "Kiến trúc hướng dịch vụ",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối tự chọn",
+            "prerequisite": null
+        },
+        {
+            "STT": 58,
+            "course_code": "IS358",
+            "course_name": "Kiểm soát nhiễm khuẩn bệnh viện",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối tự chọn",
+            "prerequisite": null
+        },
+        {
+            "STT": 59,
+            "course_code": "IS502",
+            "course_name": "Thực tập doanh nghiệp",
+            "credits": 2,
+            "theory": 0,
+            "practice": 2,
+            "category": "Khối kiến thức tốt nghiệp - Bắt buộc",
+            "prerequisite": null
+        },
+        {
+            "STT": 60,
+            "course_code": "IS401",
+            "course_name": "Khóa luận tốt nghiệp",
+            "credits": 10,
+            "theory": 0,
+            "practice": 10,
+            "category": "Khối kiến thức tốt nghiệp - Bắt buộc",
+            "prerequisite": "IS502"
+        },
+        {
+            "STT": 61,
+            "course_code": "IS402",
+            "course_name": "Điện toán đám mây",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối kiến thức tốt nghiệp - Chuyên đề",
+            "prerequisite": [
+                "IT005",
+                "IT007"
+            ]
+        },
+        {
+            "STT": 62,
+            "course_code": "IS353",
+            "course_name": "Mạng xã hội",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối kiến thức tốt nghiệp - Chuyên đề",
+            "prerequisite": [
+                "IT004",
+                "Ma004"
+            ]
+        },
+        {
+            "STT": 63,
+            "course_code": "IS355",
+            "course_name": "Công nghệ Blockchain",
+            "credits": 4,
+            "theory": 3,
+            "practice": 1,
+            "category": "Khối kiến thức tốt nghiệp - Chuyên đề",
+            "prerequisite": null
+        },
+        {
+            "STT": 64,
+            "course_code": "IS406",
+            "course_name": "Điện toán đám mây & xử lý dữ liệu lớn",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối kiến thức tốt nghiệp - Chuyên đề HTTT Y tế",
+            "prerequisite": null
+        },
+        {
+            "STT": 65,
+            "course_code": "IS359",
+            "course_name": "Đồ án chuyên ngành HTTT y tế",
+            "credits": 3,
+            "theory": 3,
+            "practice": 0,
+            "category": "Khối kiến thức tốt nghiệp - Chuyên đề HTTT Y tế",
+            "prerequisite": null
+        }
+    ]
+}
